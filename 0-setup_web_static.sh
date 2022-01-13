@@ -1,24 +1,13 @@
 #!/usr/bin/env bash
 # Script that sets up your web servers for the deployment of web_static
-if ! which nginx > /dev/null 2>&1; then
-    sudo apt-get -y update
-    sudo apt-get -y install nginx
-fi
-if ! test -d /data; then
-    mkdir /data
-fi
-if ! test -d /data/web_static/; then
-    mkdir /data/web_static
-fi
-if ! test -d /data/web_static/releases/; then
-    mkdir /data/web_static/releases/
-fi
-if ! test -d /data/web_static/shared/; then
-    mkdir /data/web_static/shared/
-fi
-if ! test -d /data/web_static/releases/test/; then
-    mkdir /data/web_static/releases/test/
-fi
+
+sudo apt-get -y update
+sudo apt-get -y install nginx
+mkdir -p /data/
+mkdir -p /data/web_static/
+mkdir -p /data/web_static/releases/
+mkdir -p /data/web_static/shared/
+mkdir -p /data/web_static/releases/test/
 VALUE="<html>
   <head>
   </head>
