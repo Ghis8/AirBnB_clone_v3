@@ -5,7 +5,7 @@ import datetime
 import os.path
 from fabric.operations import put, run
 
-env.hosts =['34.138.80.184', '34.203.28.213']
+env.hosts = ['34.138.80.184', '34.203.28.213']
 
 
 def do_pack():
@@ -45,6 +45,7 @@ def do_deploy(archive_path):
         except:
             return False
     return False
+
 
 def deploy():
     """Create .tgz and load the file in servers"""
