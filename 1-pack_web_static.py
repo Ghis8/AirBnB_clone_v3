@@ -1,10 +1,12 @@
 #!/usr/bin/python3
+"""Deploy static information"""
 
 from fabric.api import *
 import datetime
 
 
 def do_pack():
+    """Create a file compress with information static"""
     name_file = "web_static_"
     date = datetime.datetime.now()
     split_v = str(date).split(' ')
