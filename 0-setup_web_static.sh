@@ -16,10 +16,11 @@ VALUE="<html>
   </body>
 </html>"
 echo "$VALUE" > /data/web_static/releases/test/index.html
+rm -rf /data/web_static/current
 ln -sf /data/web_static/releases/test/ /data/web_static/current
 chown -R ubuntu:ubuntu /data/
 FIRST_PATH="server_name _;"
-FIRST_PATH_TWO="\tlocation /hbnb_static {\n\t\talias /data/web_static/current/;\n\t\tautoindex off;\n\t}"
+FIRST_PATH_TWO="\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t\tautoindex off;\n\t}"
 SECOND_PATH="/etc/nginx/sites-available/default"
 sudo sed -i "/$FIRST_PATH/a\\$FIRST_PATH_TWO" $SECOND_PATH
 sudo service nginx restart
