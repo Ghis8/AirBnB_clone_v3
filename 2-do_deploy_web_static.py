@@ -6,7 +6,7 @@ import datetime
 import os.path
 from fabric.operations import put, run
 
-env.hosts = ['34.138.80.184', '34.203.28.213']
+env.hosts = ['34.138.80.184', '34.139.204.147']
 
 
 def do_pack():
@@ -31,7 +31,7 @@ def do_deploy(archive_path):
     """Upload files servers"""
     if os.path.exists(archive_path):
         try:
-            file_name = archive_path.split('/')[-1][:-4]
+            file_name = archive_path.split('/')[-1].split('.')[0]
             directory_s = "/data/web_static/releases/{}/".format(file_name)
             put(archive_path, '/tmp/')
             run("mkdir -p {}".format(directory_s))
