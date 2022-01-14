@@ -8,6 +8,7 @@ import os
 env.hosts = ['34.138.80.184', '34.139.204.147']
 env.user = 'ubuntu'
 
+
 def do_pack():
     """Fabric script that generates a .tgz archive from the contents of
     the web_static folder of your AirBnB Clone repo,
@@ -22,8 +23,6 @@ def do_pack():
         return tgz_file
     else:
         return None
-
-
 
 
 def do_deploy(archive_path):
