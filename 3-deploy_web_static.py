@@ -52,5 +52,4 @@ def deploy():
     file_name = do_pack()
     if file_name is None:
         return False
-    path_complete = "versions/{}".format(file_name)
-    return do_deploy(path_complete)
+    return do_deploy(file_name)
