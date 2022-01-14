@@ -1,28 +1,17 @@
 #!/usr/bin/env bash
-# Script that sets up your web servers for the deployment of web_static
-
-sudo apt-get -y update
-sudo apt-get -y install nginx
-mkdir -p /data/
-mkdir -p /data/web_static/
-mkdir -p /data/web_static/releases/
-mkdir -p /data/web_static/shared/
-mkdir -p /data/web_static/releases/test/
-touch /data/web_static/releases/test/index.html
-VALUE="<html>
-  <head>
-  </head>
-  <body>
-    Holberton School
-  </body>
-</html>"
-echo "$VALUE" > /data/web_static/releases/test/index.html
-rm -rf /data/web_static/current
-ln -sf /data/web_static/releases/test/ /data/web_static/current
-chown -hR ubuntu:ubuntu /data/
-FIRST_PATH="server_name _;"
-FIRST_PATH_TWO="\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t\tautoindex off;\n\t}"
-SECOND_PATH="/etc/nginx/sites-available/default"
-sudo sed -i "/$FIRST_PATH/a\\$FIRST_PATH_TWO" $SECOND_PATH
+# Example of script to configure a server
+sudo apt-get update -y
+sudo apt-get upgrade -y
+sudo apt-get install -y nginx
+sudo mkdir -p /data/
+sudo mkdir -p /data/web_static/
+sudo mkdir -p /data/web_static/shared/
+sudo mkdir -p /data/web_static/releases/
+sudo mkdir -p /data/web_static/releases/test/
+sudo touch /data/web_static/releases/test/index.html
+sudo chown ubuntu:ubuntu -hR /data/
+sudo echo "<html><head></head><body>Holberton School</body></html>" | sudo tee /data/web_static/releases/test/index.html
+sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
+sudo chown ubuntu:ubuntu -hR /data/
+sudo sed -i '60i\\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t}\n' /etc/nginx/sites-available/default
 sudo service nginx restart
-
