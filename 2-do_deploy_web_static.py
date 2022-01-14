@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Deploy static information"""
 
+from pickle import FALSE
 from fabric.api import *
 import datetime
 import os.path
@@ -29,20 +30,17 @@ def do_pack():
 
 def do_deploy(archive_path):
     """Upload files servers"""
-    if os.path.exists(archive_path):
-        try:
-            file_name = archive_path.split('/')[-1].split('.')[0]
-            directory_s = "/data/web_static/releases/{}/".format(file_name)
-            put(archive_path, '/tmp/')
-            run("mkdir -p {}".format(directory_s))
-            run("tar -xzf /tmp/{}.tgz -C {}".format(file_name, directory_s))
-            run("rm -rf /tmp/{}.tgz".format(file_name))
-            run("mv {}web_static/* {}".format(directory_s, directory_s))
-            run("rm -rf {}web_static".format(directory_s))
-            run("rm -rf /data/web_static/current")
-            run("ln -s /data/web_static/releases/{}/ \
+    if os.path.exists(archive_path) is False:
+        return False
+    file_name = archive_path.split('/')[-1].split('.')[0]
+    directory_s = "/data/web_static/releases/{}".format(file_name)
+    put(archive_path, '/tmp/')
+    run("mkdir -p {}".format(directory_s))
+    run("tar -xzf /tmp/{}.tgz -C {}/".format(file_name, directory_s))
+    run("rm /tmp/{}.tgz".format(file_name))
+    run("mv {}/web_static/* {}/".format(directory_s, directory_s))
+    run("rm -rf {}/web_static".format(directory_s))
+    run("rm -rf /data/web_static/current")
+    run("ln -s /data/web_static/releases/{}/ \
 /data/web_static/current".format(file_name))
-            return True
-        except:
-            return False
-    return False
+    return True
