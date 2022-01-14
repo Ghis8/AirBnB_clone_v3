@@ -8,6 +8,7 @@ mkdir -p /data/web_static/
 mkdir -p /data/web_static/releases/
 mkdir -p /data/web_static/shared/
 mkdir -p /data/web_static/releases/test/
+touch /data/web_static/releases/test/index.html
 VALUE="<html>
   <head>
   </head>
@@ -18,7 +19,7 @@ VALUE="<html>
 echo "$VALUE" > /data/web_static/releases/test/index.html
 rm -rf /data/web_static/current
 ln -sf /data/web_static/releases/test/ /data/web_static/current
-chown -R ubuntu:ubuntu /data/
+chown -hR ubuntu:ubuntu /data/
 FIRST_PATH="server_name _;"
 FIRST_PATH_TWO="\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t\tautoindex off;\n\t}"
 SECOND_PATH="/etc/nginx/sites-available/default"
