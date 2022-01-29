@@ -33,23 +33,47 @@ class DBStorage():
             Base.metadata.drop_all(bind=self.__engine)
 
     def all(self, cls=None):
-        """select all objs"""
-        new_dictionary = {}
-        query = None
+        """ Prints all the instances specified, or not """
+        from models.base_model import BaseModel
+        from models.city import City
+        from models.state import State
+        from models.user import User
+        from models.place import Place
+        from models.review import Review
+        from models.amenity import Amenity
+
+        dictionary = {}
+
         if cls is None:
-            tables_list = [State, City, User, Place, Review, Amenity]
-            for table in tables_list:
-                query += self.__session.query(table).all()
-            for new_object in query:
-                typ_obj = str(cls).split(" ")[1].split(".")[-1][:-2]
-                new_dictionary[typ_obj + '.' +
-                               new_object.id] = new_object
+            result = self.__session.query(
+                State, City, User, Place, Review, Amenity).all()
+        # AGREGAR clase
         else:
-            query = self.__session.query(cls).all()
-            typ_obj = str(cls).split(" ")[1].split(".")[-1][:-2]
-            for new_object in query:
-                new_dictionary[typ_obj + '.' + new_object.id] = new_object
-        return new_dictionary
+            result = self.__session.query(cls).all()
+
+        for obj in result:
+            dictionary[obj.__class__.__name__ + '.' + obj.id] = obj
+
+        return dictionary
+        # """select all objs"""
+        # new_dictionary = {}
+        # # query = None
+        # query = []
+        # if cls is None:
+        #     tables_list = [State, City, User, Place, Review, Amenity]
+        #     for table in tables_list:
+        #         # query += self.__session.query(table).all()
+        #         query.append(self.__session.query(table).all())
+        #     for new_object in query:
+        #         typ_obj = str(cls).split(" ")[1].split(".")[-1][:-2]
+        #         new_dictionary[typ_obj + '.' +
+        #                        new_object.id] = new_object
+        # else:
+        #     query = self.__session.query(cls).all()
+        #     typ_obj = str(cls).split(" ")[1].split(".")[-1][:-2]
+        #     for new_object in query:
+        #         new_dictionary[typ_obj + '.' + new_object.id] = new_object
+        # return new_dictionary
 
     def new(self, obj):
         """add obj to session"""
@@ -79,3 +103,7 @@ class DBStorage():
         session_factory = sessionmaker(
             bind=self.__engine, expire_on_commit=False)
         self.__session = scoped_session(session_factory)
+
+    def close(self):
+        """Close current session"""
+        self.__session.remove()

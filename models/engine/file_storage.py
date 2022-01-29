@@ -67,3 +67,7 @@ class FileStorage:
             self.save()
         else:
             pass
+
+    def close(self):
+        """Used to recall information added in new process"""
+        self.reload()
