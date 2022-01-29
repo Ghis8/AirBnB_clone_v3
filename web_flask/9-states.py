@@ -25,7 +25,7 @@ def states_id(id):
     return render_template('9-states.html', no_found=True)
 
 
-@app.teardown_appcontex
+@app.teardown_appcontext
 def storage_close(self):
     '''Close current session'''
     storage.close()
