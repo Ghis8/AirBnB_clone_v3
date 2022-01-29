@@ -24,6 +24,13 @@ def c_is_fun(text):
     return 'C {}'.format(text)
 
 
+@app.route('/python/<text>', strict_slashes=False)
+def python_is_cool(text):
+    """GET Route /python and <text> to print"""
+    text = text.replace("_", " ")
+    return 'Python {}'.format(text)
+
+
 @app.route('/python', strict_slashes=False)
 def python_default():
     """route /python how default"""
