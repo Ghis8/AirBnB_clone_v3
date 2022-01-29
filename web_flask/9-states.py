@@ -5,7 +5,6 @@ from http.client import FOUND
 from flask import Flask, render_template
 from models import *
 from models.state import State
-from models.city import City
 app = Flask(__name__)
 
 
@@ -30,6 +29,7 @@ def states_id(id):
 def storage_close(self):
     '''Close current session'''
     storage.close()
+
 
 """Init"""
 if __name__ == '__main__':
