@@ -18,7 +18,7 @@ def states():
                            amenities=amenities)
 
 
-@app.teardown_appcontex
+@app.teardown_appcontext
 def storage_close(self):
     '''Close current session'''
     storage.close()

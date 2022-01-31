@@ -40,14 +40,13 @@ class DBStorage():
         from models.user import User
         from models.place import Place
         from models.review import Review
-        from models.amenity import Amenity
+        # from models.amenity import Amenity
 
         dictionary = {}
 
         if cls is None:
             result = self.__session.query(
                 State, City, User, Place, Review, Amenity).all()
-        # AGREGAR clase
         else:
             result = self.__session.query(cls).all()
 

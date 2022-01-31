@@ -30,6 +30,7 @@
 }
 
 .popover {
+	position: relative;
 	list-style-type: none;
 	display: none;
 	background-color: #FAFAFA;
@@ -42,6 +43,11 @@
 	opacity: 1;
 	max-height: 300px;
 	overflow-y: auto;
+	z-index: 1;
+}
+
+.popover::-webkit-scrollbar {
+	display: none;
 }
 
 .locations:hover .popover {

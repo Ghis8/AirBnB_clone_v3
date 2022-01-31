@@ -37,8 +37,6 @@ article {
 	display: flex;
 	justify-content: center;
 	align-self: flex-end;
-
-	position: absolute;
 	right: 0;
 
 	line-height: 60px;
@@ -50,6 +48,7 @@ article {
 	float: right;
 	min-width: 60px;
 	height: 60px;
+	align-self: center;
 }
 
 .information {
@@ -96,7 +95,6 @@ article h2 {
 	font-size: 30px;
 	margin: 10px auto;
 	padding: 0px;
-	padding-right: 100px;
 }
 
 .guest_icon {
